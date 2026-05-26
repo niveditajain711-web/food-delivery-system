@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package orderflow.order;
+
+option java_multiple_files = true;
+option java_package = "com.orderflow.order.grpc";
+
+// OrderService is the entry point for placing and querying orders (unary RPC).
+service OrderService {
+  rpc PlaceOrder(PlaceOrderRequest) returns (PlaceOrderResponse);
+  rpc GetOrder(GetOrderRequest) returns (Order);
+}
+
+message OrderLineItem {
+  string product_id = 1;
+  int32 quantity = 2;
+}
+
+message PlaceOrderRequest {
+  string customer_id = 1;
+  string restaurant_id = 2;
+  repeated OrderLineItem items = 3;
+}
+
+message PlaceOrderResponse {
+  string order_id = 1;
+  OrderStatus status = 2;
+  string message = 3;
+}
+
+message GetOrderRequest {
+  string order_id = 1;
+}
+
+message Order {
+  string order_id = 1;
+  string customer_id = 2;
+  string restaurant_id = 3;
+  OrderStatus status = 4;
+  repeated OrderLineItem items = 5;
+}
+
+enum OrderStatus {
+  ORDER_STATUS_UNSPECIFIED = 0;
+  CONFIRMED = 1;
+  OUT_FOR_DELIVERY = 2;
+  DELIVERED = 3;
+  CANCELLED = 4;
+}

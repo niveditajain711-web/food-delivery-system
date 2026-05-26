@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package orderflow.tracking;
+
+option java_multiple_files = true;
+option java_package = "com.orderflow.tracking.grpc";
+
+// TrackingService streams simulated driver locations (server streaming RPC).
+service TrackingService {
+  rpc StreamDeliveryLocation(StreamDeliveryLocationRequest) returns (stream LocationUpdate);
+}
+
+message StreamDeliveryLocationRequest {
+  string order_id = 1;
+}
+
+message LocationUpdate {
+  string order_id = 1;
+  double latitude = 2;
+  double longitude = 3;
+  int32 sequence = 4;
+  bool delivered = 5;
+}

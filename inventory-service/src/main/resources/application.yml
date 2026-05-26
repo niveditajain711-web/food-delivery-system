@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: inventory-service
+  datasource:
+    url: jdbc:h2:mem:inventorydb;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+
+grpc:
+  server:
+    port: 9091
+
+logging:
+  level:
+    com.orderflow: INFO
+    io.grpc: WARN

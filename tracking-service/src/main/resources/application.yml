@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: tracking-service
+
+grpc:
+  server:
+    port: 9092
+
+logging:
+  level:
+    com.orderflow: INFO
+    io.grpc: WARN

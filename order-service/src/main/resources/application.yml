@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: order-service
+  datasource:
+    url: jdbc:h2:mem:orderdb;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+
+grpc:
+  server:
+    port: 9090
+  client:
+    inventory-service:
+      address: static://localhost:9091
+      negotiation-type: plaintext
+      deadline: 5s
+
+logging:
+  level:
+    com.orderflow: INFO
+    io.grpc: WARN

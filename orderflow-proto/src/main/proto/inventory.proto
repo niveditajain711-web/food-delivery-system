@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package orderflow.inventory;
+
+option java_multiple_files = true;
+option java_package = "com.orderflow.inventory.grpc";
+
+// InventoryService manages stock reservation for orders (unary RPC).
+service InventoryService {
+  rpc ReserveItems(ReserveItemsRequest) returns (ReserveItemsResponse);
+  rpc ReleaseItems(ReleaseItemsRequest) returns (ReleaseItemsResponse);
+}
+
+message OrderLineItem {
+  string product_id = 1;
+  int32 quantity = 2;
+}
+
+message ReserveItemsRequest {
+  string order_id = 1;
+  repeated OrderLineItem items = 2;
+}
+
+message ReserveItemsResponse {
+  bool reserved = 1;
+  string message = 2;
+}
+
+message ReleaseItemsRequest {
+  string order_id = 1;
+  repeated OrderLineItem items = 2;
+}
+
+message ReleaseItemsResponse {
+  bool released = 1;
+  string message = 2;
+}
