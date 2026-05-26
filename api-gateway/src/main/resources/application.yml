@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+
+grpc:
+  client:
+    order-service:
+      address: static://localhost:9090
+      negotiation-type: plaintext
+      deadline: 10s
+    tracking-service:
+      address: static://localhost:9092
+      negotiation-type: plaintext
+      deadline: 60s
+
+orderflow:
+  cors:
+    allowed-origins: http://localhost:5173
+
+logging:
+  level:
+    com.orderflow: INFO
+    io.grpc: WARN
